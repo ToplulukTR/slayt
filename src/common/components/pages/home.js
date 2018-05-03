@@ -1,24 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import GrommetHeader from 'grommet/components/Header';
-import GrommetTitle from 'grommet/components/title';
 import GrommetBox from 'grommet/components/Box';
 import GrommetButton from 'grommet/components/Button';
-import GrommetMenu from 'grommet/components/Menu';
-import GrommetAnchor from 'grommet/components/Anchor';
 import GrommetHero from 'grommet/components/Hero';
 import GrommetHeading from 'grommet/components/Heading';
 import GrommetImage from 'grommet/components/Image';
 import GrommetSection from 'grommet/components/Section';
 import GrommetCard from 'grommet/components/Card';
-import GrommetFooter from 'grommet/components/Footer';
-import GrommetParagraph from 'grommet/components/Paragraph';
 
 import PlayIcon from 'grommet/components/icons/base/PlayFill';
 
 import 'grommet/grommet.min.css';
 
 const Home = ({
+  history,
   increment,
   incrementIfOdd,
   incrementAsync,
@@ -51,7 +45,7 @@ const Home = ({
       <GrommetBox pad='medium' colorIndex='light-2' align='center'>
         <GrommetButton icon={<PlayIcon />}
           label='Create your playlist!'
-          onClick={() => {}}
+          onClick={() => history.push('/playlists')}
           primary={true}
           secondary={false}
           accent={false}

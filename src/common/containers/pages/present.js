@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Present from '../components/present';
+import Present from '../../components/pages/present';
 
 const mapStateToProps = state => ({
 

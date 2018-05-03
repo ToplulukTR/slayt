@@ -1,8 +1,9 @@
+import _get from 'lodash.get';
 import { connect } from 'react-redux';
-import Sidebar from '../components/sidebar';
+import Sidebar from '../../../components/pages/my-playlist/sidebar';
 
 const mapStateToProps = state => ({
-  playlists: state.user.playlists,
+  playlists: _get(state, 'app.user.playlists', []),
 });
 
 function mapDispatchToProps(dispatch) {

@@ -1,5 +1,12 @@
 import express from 'express';
+import firebase from 'firebase-admin';
+
 import app from './server';
+import {key} from './server/config/key-firebase';
+firebase.initializeApp({
+  credential: firebase.credential.cert(key)
+});
+const database = firebase.firestore();
 
 if (module.hot) {
   module.hot.accept('./server', function() {
@@ -17,5 +24,7 @@ export default express()
       console.error(err);
       return;
     }
+
+    global.clients = {database};
     console.log(`> Started on port ${port}`);
   });

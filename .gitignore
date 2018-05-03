@@ -11,3 +11,5 @@ public/static
 .env.development.local
 .env.test.local
 .env.production.local
+
+src/server/config/key-firebase.js

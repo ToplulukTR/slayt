@@ -16,5 +16,5 @@ export default function (key, q) {
 
   return fetch(`${SEARCH_URL}?${querystring.stringify(params)}`)
     .then(checkStatus)
-    .then(parseJSON)
+    .then(parseJSON);
 }

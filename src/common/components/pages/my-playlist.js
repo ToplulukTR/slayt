@@ -1,27 +1,23 @@
 import React from 'react';
 import debounce from 'lodash.debounce';
-import PropTypes from 'prop-types';
 import GrommetSearch from 'grommet/components/Search';
 import GrommetSection from 'grommet/components/Section';
-import GrommetSplit from 'grommet/components/Split';
 import GrommetBox from 'grommet/components/Box';
-import PlayIcon from 'grommet/components/icons/base/PlayFill';
 import SpinningIcon from 'grommet/components/icons/Spinning';
 
-import Sidebar from '../containers/sidebar';
-import Header from './header';
-import Footer from './footer';
+import Header from '../header';
+import Footer from '../footer';
 import VideoList from './my-playlist/video-list';
 
 const MyPlaylist = ({
-  handleSearch, search
+  handleSearch, search = {}
 }) => {
   const boundHandleSearch = debounce(handleSearch, 300);
   return (
     <div>
       <Header />
       <GrommetSection>
-        <GrommetSearch placeHolder='Search'
+        <GrommetSearch placeHolder='Search for music/videos'
           inline={true}
           iconAlign='start'
           size='medium'
@@ -31,24 +27,13 @@ const MyPlaylist = ({
           onDOMChange={e => boundHandleSearch(e.target.value)} />
       </GrommetSection>
 
-      <GrommetSection>
-        <GrommetSplit
-          priority='left'
-          flex='left'
-          showOnResponsive='both'>
-          <GrommetBox
-            align='center'
-            pad='medium'>
-
-            {search.loading ? (
-              <SpinningIcon />
-            ) : (
-              <VideoList videos={search.list} />
-            )}
-          </GrommetBox>
-          <Sidebar />
-        </GrommetSplit>
-      </GrommetSection>
+      <GrommetBox align='center' pad='none' direction='row' wrap={true}>
+        {search.loading ? (
+          <SpinningIcon />
+        ) : (
+          <VideoList videos={search.list} />
+        )}
+      </GrommetBox>
       <Footer />
     </div>
   );

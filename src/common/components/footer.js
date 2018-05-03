@@ -1,15 +1,13 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import GrommetTitle from 'grommet/components/title';
+import GrommetTitle from 'grommet/components/Title';
 import GrommetFooter from 'grommet/components/Footer';
 import GrommetParagraph from 'grommet/components/Paragraph';
 
 const Footer = props => (
   <GrommetFooter justify='between' size='small'>
     <GrommetTitle>
-      Slayt
     </GrommetTitle>
-    <GrommetParagraph margin='none' align='center'>
+    <GrommetParagraph margin='none' align='center' style={{fontSize: '12px'}}>
       © 2018 Selman Kahya
     </GrommetParagraph>
   </GrommetFooter>

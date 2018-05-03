@@ -1,10 +1,11 @@
+import _get from 'lodash.get';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import MyPlaylist from '../components/my-playlist';
-import {handleSearch} from '../actions/search';
+import MyPlaylist from '../../components/pages/my-playlist';
+import {handleSearch} from '../../actions/search';
 
 const mapStateToProps = state => ({
-  search: state.search,
+  search: _get(state, 'app.search'),
 });
 
 function mapDispatchToProps(dispatch) {
