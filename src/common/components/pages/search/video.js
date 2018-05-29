@@ -20,7 +20,7 @@ const durationStyle = {
 };
 
 const Video = ({
-  details, saveLiked, isLiked, playlists
+  details, saveLiked, isLiked, playlists, addVideoToPlaylist
 }) => {
   const {id, title} = details;
   const opts = {
@@ -30,8 +30,13 @@ const Video = ({
       modestbranding: 1,
     }
   };
-  let playlistsClone = playlists.slice();
+  let playlistsClone = playlists.list.map(playlist => playlist.name).slice();
   playlistsClone.push('Create a new playlist >');
+
+  const onDropdownChange = ({value}) => {
+    const playlist = playlists.list.find(playlist => playlist.name === value);
+    return addVideoToPlaylist(id, playlist.id);
+  };
 
   return (
     <GrommetBox direction='column' pad='medium' basis='1/2'>
@@ -58,7 +63,7 @@ const Video = ({
             <GrommetSelect placeHolder='Add to playlist +'
               options={playlistsClone}
               value={''}
-              onChange={() => {}}
+              onChange={onDropdownChange}
               style={{width: '100%'}}
             />
           </GrommetBox>

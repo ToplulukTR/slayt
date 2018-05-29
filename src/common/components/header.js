@@ -5,7 +5,7 @@ import GrommetBox from 'grommet/components/Box';
 import GrommetMenu from 'grommet/components/Menu';
 import GrommetAnchor from 'grommet/components/Anchor';
 
-const Header = props => (
+const Header = ({history, location}) => (
   <GrommetHeader>
     <GrommetTitle>
       Slayt
@@ -19,13 +19,23 @@ const Header = props => (
         direction='row'
         size='medium'>
         <GrommetAnchor href='#'
-          className='active'>
+          onClick={() => history.push('/')}
+          className={location.pathname === '/' ? 'active' : ''}>
           Home
         </GrommetAnchor>
-        <GrommetAnchor href='#'>
+        <GrommetAnchor
+          onClick={() => history.push('/search')}
+          className={location.pathname === '/search' ? 'active' : ''}>
+          Search
+        </GrommetAnchor>
+        <GrommetAnchor
+          onClick={() => history.push('/playlists')}
+          className={location.pathname === '/playlists' ? 'active' : ''}>
           My Playlists
         </GrommetAnchor>
-        <GrommetAnchor href='#'>
+        <GrommetAnchor
+          onClick={() => history.push('/favourites')}
+          className={location.pathname === '/favourites' ? 'active' : ''}>
           Favourites
         </GrommetAnchor>
       </GrommetMenu>

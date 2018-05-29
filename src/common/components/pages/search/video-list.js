@@ -1,6 +1,6 @@
 import React from 'react';
 import GrommetBox from 'grommet/components/Box';
-import Video from '../../../containers/pages/my-playlist/video';
+import Video from '../../../containers/pages/search/video';
 
 const VideoList = ({
   videos

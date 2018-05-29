@@ -4,7 +4,8 @@ import firebase from 'firebase-admin';
 import app from './server';
 import {key} from './server/config/key-firebase';
 firebase.initializeApp({
-  credential: firebase.credential.cert(key)
+  credential: firebase.credential.cert(key),
+  databaseURL: "https://slayt1-e73ac.firebaseio.com"
 });
 const database = firebase.firestore();
 

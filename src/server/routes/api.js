@@ -91,6 +91,66 @@ const setApiRoutes = server => {
          return res.send({error: true});
       });
   });
+
+  // get playlists -- /api/playlists GET
+  // get playlist -- /api/playlist/1 GET
+  // create playlist -- /api/playlist POST
+  // delete playlist -- /api/playlist DELETE
+  // add video to playlist -- /api/playlist/1/video POST
+  server.post('/api/playlist/:playlistId/video', (req, res) => {
+    const playlistId = req.params.playlistId;
+    let videoId;
+    try {
+      videoId = JSON.parse(req.body).id;
+    } catch (ex) {}
+
+    if (!videoId || !playlistId) {
+      return res.send({error: true});
+    }
+
+    // fetch user data
+    const docRef = global.clients.database.collection("playlists").doc("selman");
+    docRef.get().then(doc => {
+      if (doc.exists) {
+        const playlists = doc.data().playlists;
+        const playlist = playlists.find(playlist => playlist.id == playlistId);
+        playlist.videos.push({
+          id: videoId,
+          vote: 0
+        });
+        docRef.update({playlists}).then(() => console.log('yes')).catch(err => console.log(err));
+        return res.send({success: true});
+      }
+      return res.send({success: false});
+    }).catch(function(error) {
+      return res.send({success: false});
+    });
+  });
+
+  server.post('/api/playlist/:playlistId/video/:videoId/:vote', (req, res) => {
+    const playlistId = req.params.playlistId;
+    const videoId = req.params.videoId;
+
+    if (!videoId || !playlistId) {
+      return res.send({error: true});
+    }
+
+    // fetch user data
+    const docRef = global.clients.database.collection("playlists").doc("selman");
+    docRef.get().then(doc => {
+      if (doc.exists) {
+        const playlists = doc.data().playlists;
+        const playlist = playlists.find(playlist => playlist.id == playlistId);
+        const video = playlist.videos.find(video => video.id == videoId);
+        video.vote = req.params.vote === 'down' ? video.vote - 1 : video.vote + 1;
+        docRef.update({playlists}).then(() => console.log('yes')).catch(err => console.log(err));
+        return res.send({playlists});
+      }
+      return res.send({success: false});
+    }).catch(function(error) {
+      return res.send({success: false});
+    });
+  });
 };
 
 export default setApiRoutes;
