@@ -20,22 +20,22 @@ const Header = ({history, location}) => (
         size='medium'>
         <GrommetAnchor href='#'
           onClick={() => history.push('/')}
-          className={location.pathname === '/' ? 'active' : ''}>
+          className={location && location.pathname === '/' ? 'active' : ''}>
           Home
         </GrommetAnchor>
         <GrommetAnchor
           onClick={() => history.push('/search')}
-          className={location.pathname === '/search' ? 'active' : ''}>
+          className={location && location.pathname === '/search' ? 'active' : ''}>
           Search
         </GrommetAnchor>
         <GrommetAnchor
           onClick={() => history.push('/playlists')}
-          className={location.pathname === '/playlists' ? 'active' : ''}>
+          className={location && location.pathname === '/playlists' ? 'active' : ''}>
           My Playlists
         </GrommetAnchor>
         <GrommetAnchor
           onClick={() => history.push('/favourites')}
-          className={location.pathname === '/favourites' ? 'active' : ''}>
+          className={location && location.pathname === '/favourites' ? 'active' : ''}>
           Favourites
         </GrommetAnchor>
       </GrommetMenu>

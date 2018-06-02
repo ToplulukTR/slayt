@@ -1,3 +1,4 @@
+/* global firebase */
 import React from 'react';
 import YouTube from 'react-youtube';
 import debounce from 'lodash.debounce';

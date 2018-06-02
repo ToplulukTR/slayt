@@ -1,8 +1,9 @@
+import React from 'react';
 import { hydrate } from 'react-dom';
-import {getRoot} from '../common/components/root';
+import Root from '../common/components/root';
 
 hydrate(
-  getRoot(),
+  <Root />,
   document.getElementById('root')
 );
 
