@@ -5,6 +5,7 @@ import App from '../components/app';
 import {initApp} from '../actions/app';
 
 const mapStateToProps = state => {
+  console.log(state)
   return {
     loading: _get(state, 'app.context.loading', [])
   };

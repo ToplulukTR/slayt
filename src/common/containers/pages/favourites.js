@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Favourites from '../../components/pages/favourites';
 
 const mapStateToProps = state => ({
-  liked: _get(state, 'app.liked.list', [])
+  liked: _get(state, 'app.context.user.liked', [])
 });
 
 function mapDispatchToProps(dispatch) {

@@ -6,10 +6,14 @@ import Video from '../../../components/pages/search/video';
 import {saveLiked} from '../../../actions/liked';
 import {addVideoToPlaylist} from '../../../actions/playlists';
 
-const mapStateToProps = (state, props) => ({
-  isLiked: _get(state, 'app.liked.list', []).indexOf(props.details.id) > -1,
-  playlists: _get(state, 'app.playlists', [])
-});
+const mapStateToProps = (state, props) => {
+  const liked = _get(state, 'app.context.user.liked', []);
+  return {
+    liked,
+    isLiked: liked.indexOf(props.details.id) > -1,
+    playlists: _get(state, 'app.context.playlists', [])
+  };
+};
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({

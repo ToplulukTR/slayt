@@ -1,3 +1,4 @@
+/* global firebase */
 import fetch from 'isomorphic-fetch'
 import checkStatus from '../lib/fetch/check-status'
 import parseJSON from '../lib/fetch/parse-json'
@@ -11,22 +12,29 @@ export const likeStarted = () => ({
 
 export const likeFinished = liked => ({
   type: LIKE_FINISHED,
-  payload: {liked},
+  payload: {liked}
 });
 
-export const saveLiked = id => dispatch => {
-  if (id) {
-    dispatch(likeStarted());
+const save = async (dispatch, liked, videoId) => {
+  dispatch(likeStarted());
 
-    fetch(`/api/like`, {method: 'POST', body: JSON.stringify({id})})
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(data => {
-        dispatch(likeFinished(data.liked));
-      })
-      .catch(error => {
-        // TODO handle error
-        dispatch(likeFinished());
-      });
+  const userId = 'selman';
+  const db = firebase.firestore();
+  const index = liked.indexOf(videoId);
+  if (index === -1) {
+    liked.push(videoId);
+  } else {
+    liked.splice(index, 1);
+  }
+
+  const docRef = db.collection("users").doc("selman");
+  docRef.update({liked});
+  dispatch(likeFinished(liked));
+}
+
+export const saveLiked = (liked, videoId) => dispatch => {
+  if (videoId) {
+    dispatch(likeStarted());
+    save(dispatch, liked, videoId);
   }
 };

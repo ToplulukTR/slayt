@@ -1,3 +1,4 @@
+/* global firebase */
 import fetch from 'isomorphic-fetch'
 import checkStatus from '../lib/fetch/check-status'
 import parseJSON from '../lib/fetch/parse-json'
@@ -25,25 +26,6 @@ export const voteFinished = playlists => ({
   payload: {playlists}
 });
 
-export const addVideoToPlaylist = (videoId, playlistId) => dispatch => {
-  if (videoId && playlistId) {
-    // dispatch(likeStarted());
-
-    fetch(`/api/playlist/${playlistId}/video`, {method: 'POST', body: JSON.stringify({id: videoId})})
-      .then(checkStatus)
-      .then(parseJSON)
-      .then(data => {
-        alert('yes');
-        // dispatch(likeFinished(data.liked));
-      })
-      .catch(error => {
-        alert('no');
-        // TODO handle error
-        // dispatch(likeFinished());
-      });
-  }
-};
-
 export const vote = (videoId, playlistId, increment) => dispatch => {
   if (videoId && playlistId) {
     dispatch(voteStarted());
@@ -58,5 +40,43 @@ export const vote = (videoId, playlistId, increment) => dispatch => {
         // TODO handle error
         dispatch(voteFinished());
       });
+  }
+};
+
+const addVideo = async (dispatch, videoId, playlistId) => {
+  // dispatch(initAppStarted);
+  const userId = 'selman';
+  const db = firebase.firestore();
+
+  const userDoc = db.collection("users").doc(userId);
+  const user = await userDoc.get();
+
+  const playlistDoc = userDoc.collection('playlists').doc(playlistId);
+  const playlistsData = await playlistDoc.get();
+  const videosRef = playlistsData.ref.collection('videos');
+  const video = await videosRef.doc(videoId).get();
+
+  console.log(video);
+  if (video.exists) {
+    // TODO alert
+  } else {
+    try {
+      await videosRef.doc(videoId).set({id: videoId, name: 'hardcoded-name'});
+    } catch(err) {
+      // TODO
+      alert(err);
+    }
+  }
+  /*
+  dispatch(initAppFinished({
+    user: user.data(),
+    playlists,
+  }));
+  */
+};
+
+export const addVideoToPlaylist = (videoId, playlistId) => dispatch => {
+  if (videoId && playlistId) {
+    addVideo(dispatch, videoId, playlistId);
   }
 };

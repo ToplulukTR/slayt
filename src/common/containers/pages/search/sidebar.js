@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import Sidebar from '../../../components/pages/search/sidebar';
 
 const mapStateToProps = state => ({
-  playlists: _get(state, 'app.user.playlists', []),
+  playlists: _get(state, 'app.context.playlists', []),
 });
 
 function mapDispatchToProps(dispatch) {

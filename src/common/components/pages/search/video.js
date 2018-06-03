@@ -20,8 +20,9 @@ const durationStyle = {
 };
 
 const Video = ({
-  details, saveLiked, isLiked, playlists, addVideoToPlaylist
+  details, saveLiked, isLiked, liked, playlists, addVideoToPlaylist
 }) => {
+
   const {id, title} = details;
   const opts = {
     height: '250',
@@ -30,11 +31,11 @@ const Video = ({
       modestbranding: 1,
     }
   };
-  let playlistsClone = playlists.list.map(playlist => playlist.name).slice();
+  let playlistsClone = playlists.map(playlist => playlist.name).slice();
   playlistsClone.push('Create a new playlist >');
 
   const onDropdownChange = ({value}) => {
-    const playlist = playlists.list.find(playlist => playlist.name === value);
+    const playlist = playlists.find(playlist => playlist.name === value);
     return addVideoToPlaylist(id, playlist.id);
   };
 
@@ -71,7 +72,7 @@ const Video = ({
             colorIndex={isLiked ? 'neutral-2' : 'grey-4'}
             size='small'
             style={{marginLeft: '12px', cursor: 'pointer'}}
-            onClick={e => saveLiked(id)} />
+            onClick={e => saveLiked(liked, id)} />
        </GrommetBox>
      </GrommetBox>
    </GrommetBox>
