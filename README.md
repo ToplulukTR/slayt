@@ -1,4 +1,8 @@
 # Slayt
+Topluluk/Partnerlik programi kapsaminda gelistirilen bir web uygulamasi. Proje yoneticisi: Selman K, takim: https://github.com/orgs/ToplulukTR/teams/slayt
+
+--
+
 Create beautiful slides in a min!
 
 To run on your localhost:
